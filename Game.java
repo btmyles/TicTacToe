@@ -49,6 +49,8 @@ abstract public class Game
     public int detectWin(ArrayList<Button> buttons)
     {
         int ret = -1;
+
+        // Check for row-win
         for (int i=0; i<9; i+=3)
         {
             if (buttons.get(i).getText() == buttons.get(i+1).getText() &&
@@ -62,6 +64,32 @@ abstract public class Game
                 {
                     ret = 2;
                 }
+            }
+        }
+        
+        // Check for col-win
+        for (int i=0; i<3; i++)
+        {
+            if (buttons.get(i).getText() == buttons.get(i+3).getText() &&
+                buttons.get(i).getText() == buttons.get(i+6).getText())
+            {
+                if (buttons.get(i).getText().equals(p1Token))
+                {
+                    ret = 1;
+                }
+                else if (buttons.get(i).getText().equals(p2Token))
+                {
+                    ret = 2;
+                }
+            }
+        }
+
+        // Check for dia-win
+        for (int i=0; i<3; i+=3)
+        {
+            if (true)
+            {
+
             }
         }
 
