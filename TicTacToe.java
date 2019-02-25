@@ -22,10 +22,7 @@ public class TicTacToe extends Application
     protected static Player p2;
     protected static Player p1;
 
-    Boolean p1turn = true;
-
     protected static ArrayList<Button> buttons = new ArrayList<Button>(9);
-
 
     public static void main(String[] args)
     {
@@ -91,12 +88,12 @@ public class TicTacToe extends Application
 
     private void processSinglePlayer(ActionEvent event)
     {
-        game = new Game("cpu");
+        game = new SingleGame();
     }
 
     private void processTwoPlayer(ActionEvent event)
     {
-        game = new Game();
+        game = new TwoGame();
     }
 
     public void processButton(ActionEvent event)
@@ -104,6 +101,18 @@ public class TicTacToe extends Application
         if (game != null)
         {
             game.playTurns(event);
+
+            int win = game.detectWin(buttons);
+            if (win == 1)
+            {
+                Alert alert = new Alert(AlertType.INFORMATION, "P1 WIN", ButtonType.OK);
+                alert.showAndWait();
+            }
+            else if (win == 2)
+            {
+                Alert alert = new Alert(AlertType.INFORMATION, "P2 WIN", ButtonType.OK);
+                alert.showAndWait();
+            }
         }
         else
         {

@@ -12,6 +12,6 @@ class Human extends Player
 
     public void play(ActionEvent event)
     {
-        ((Button) event.getSource()).setText(token);        
+        ((Button) event.getSource()).setText(token);
     }
 }

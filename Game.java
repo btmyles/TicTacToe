@@ -1,7 +1,8 @@
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import java.util.ArrayList;
 
-public class Game
+abstract public class Game
 {
     Player p1;
     Player p2;
@@ -9,24 +10,17 @@ public class Game
     String p1Token;
     String p2Token;
 
-    Boolean p1Turn;
-
+    // Constructor
     public Game()
     {
         p1Token = "X";
         p2Token = "O";
 
-        newTwoGame();
+        for (int i=0; i<9; i++)
+            TicTacToe.buttons.get(i).setText("-");
     }
 
-    public Game(String cpu)
-    {
-        p1Token = "X";
-        p2Token = "O";
-
-        newSingleGame();
-    }
-
+    // Set p1 token to new character
     public void setP1Token(String token) throws BadTokenException
     {
         if (token.length() > 1)
@@ -36,6 +30,7 @@ public class Game
         p1 = new Human(p1Token);
     }
 
+    // Set p2 token to new character
     public void setP2Token(String token) throws BadTokenException
     {
         if (token.length() > 1)
@@ -45,37 +40,31 @@ public class Game
         p2 = new Human(p2Token);
     }
 
-    public void newTwoGame()
+    abstract public void playTurns(ActionEvent event);
+
+    // -1: no win
+    //  0: tie
+    //  1: p1 win
+    //  2: p2 win
+    public int detectWin(ArrayList<Button> buttons)
     {
-        p1Turn = true;
-        p1 = new Human(p1Token);
-        p2 = new Human(p2Token);
-
-        for (int i=0; i<9; i++)
-            TicTacToe.buttons.get(i).setText("-");
-    }
-
-    public void newSingleGame()
-    {
-        p1Turn = true;
-        p1 = new Human(p1Token);
-        p2 = new Computer(p2Token);
-
-        for (int i=0; i<9; i++)
-            TicTacToe.buttons.get(i).setText("-");
-    }
-
-    public void playTurns(ActionEvent event)
-    {
-        if (p1Turn)
+        int ret = -1;
+        for (int i=0; i<9; i+=3)
         {
-            p1.play(event);
-        }
-        else
-        {
-            p2.play(event);
+            if (buttons.get(i).getText() == buttons.get(i+1).getText() &&
+                buttons.get(i).getText() == buttons.get(i+2).getText() )
+            {
+                if (buttons.get(i).getText().equals(p1Token))
+                {
+                    ret = 1;
+                }
+                else if (buttons.get(i).getText().equals(p2Token))
+                {
+                    ret = 2;
+                }
+            }
         }
 
-        p1Turn = !p1Turn;
+        return ret;
     }
 }

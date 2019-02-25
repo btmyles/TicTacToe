@@ -10,6 +10,12 @@ public class Computer extends Player
 
     public void play(ActionEvent event)
     {
-
+        // Code here to make computer's move
+        
+        
+        
+        
+        // code to place move: 
+        // buttons.get(i).setText(token); 
     }
 }
